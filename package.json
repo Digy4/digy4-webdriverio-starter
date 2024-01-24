@@ -1,0 +1,51 @@
+{
+  "name": "digy-webdriverio-sample",
+  "version": "1.0.0",
+  "description": "Test with webdriver.io and DigyRunner",
+  "main": "index.js",
+  "scripts": {
+    "test": "npx wdio run wdio.conf.js 2>&1 | tee ./terminal_log.txt",
+    "test:chrome": "BROWSER_NAME=chrome npx wdio run wdio.conf.js --parallel=true 2>&1 | tee ./terminal_log.txt",
+    "test:chromexx": "BROWSER_NAME=chrome npx wdio run wdio.conf-xx.js --parallel=false 2>&1 | tee ./terminal_log.txt",
+    "test:firefox": "BROWSER_NAME=firefox npx wdio run wdio.conf.js --parallel=true 2>&1 | tee ./terminal_log.txt",
+    "test:edge": "BROWSER_NAME=MicrosoftEdge npx wdio run wdio.conf.js --parallel=true 2>&1 | tee ./terminal_log.txt",
+    "test:firefoxxx": "BROWSER_NAME=firefox npx wdio run wdio.conf-xx.js --parallel=false 2>&1 | tee ./terminal_log.txt",
+    "test:edgexx": "BROWSER_NAME=MicrosoftEdge npx wdio run wdio.conf-xx.js --parallel=false 2>&1 | tee ./terminal_log.txt"
+  },
+  "keywords": [
+    "CucumberJS",
+    "Webdriver.io",
+    "DigyRunner"
+  ],
+  "author": "Digy4",
+  "license": "proprietary",
+  "dependencies": {
+    "@aws-sdk/client-s3": "^3.186.0",
+    "@digy4/digyrunner-wdio": "^0.0.19",
+    "@wdio/shared-store-service": "^8.24.6",
+    "cucumber-html-reporter": "^5.5.0",
+    "file-system-cache": "^2.4.4",
+    "fs": "^0.0.1-security",
+    "fs-extra": "^10.1.0",
+    "got": "^11.8.6",
+    "uuid": "^9.0.0",
+    "wdio-cucumber-parallel-execution": "^3.6.15",
+    "wdio-video-reporter": "^4.0.5",
+    "webdriverio": "^7.20.7",
+    "yargs": "^17.5.1"
+  },
+  "devDependencies": {
+    "-": "^0.0.1",
+    "@cucumber/cucumber": "^8.7.0",
+    "@wdio/cli": "^7.25.1",
+    "wdio-chromedriver-service": "^8.0.0",
+    "@wdio/cucumber-framework": "^7.20.7",
+    "@wdio/local-runner": "^7.20.7",
+    "@wdio/spec-reporter": "^7.20.7",
+    "chromedriver": "^103.0.0",
+    "request": "^2.88.2",
+    "wdio-cucumberjs-json-reporter": "^4.4.1",
+    "wdio-json-reporter": "^3.0.0",
+    "wdio-wait-for": "^2.2.6"
+  }
+}
