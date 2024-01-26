@@ -18,7 +18,7 @@ const parallelExecutionReportDirectory = `.`;
 
 let featureFilePath = `${sourceSpecDirectory}/**/*.feature`;
 
-const PARALLEL_EXECUTION = true;
+const PARALLEL_EXECUTION = false;
 //const PARALLEL_EXECUTION = false;
 
 if (PARALLEL_EXECUTION) {
@@ -131,7 +131,7 @@ exports.config = {
           /*
           acceptInsecureCerts: true,
           'moz:firefoxOptions': {
-              args: ['start-maximized'],
+              args: ['-headless'],
           },**/
 
           'goog:chromeOptions': {
