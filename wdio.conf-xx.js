@@ -130,8 +130,8 @@ exports.config = {
         // 5 instances get started at a time.
         maxInstances: 3,
         
-        //browserName: process.env.BROWSER_NAME || 'chrome',
-        browserName: "chrome",
+        browserName: process.env.BROWSER_NAME || 'chrome',
+        //browserName: "chrome",
         //browserVersion: "120",
         os: "Windows",
         osVersion: "10",
