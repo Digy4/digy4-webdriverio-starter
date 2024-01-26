@@ -38,7 +38,7 @@ const setupParallelExecution = () => {
 const digyRunnerConfig = {
 	projectName: "demo",
 	suiteName: "Regression",
-	teamName: "randd",
+	teamName: "Digy4",
 	appVersion: "2.0",
 	environment: "test",
 	moduleName: "SomeModuleName",
@@ -62,10 +62,8 @@ exports.config = {
         //'edgedriver',
         //'geckodriver',
         ['chromedriver', {
-            //logFileName: 'wdio-chromedriver.log',
             chromedriverCustomPath: "./chromedriver",
         }]
-        //['local']
     ],
     //
     // ====================
@@ -111,7 +109,7 @@ exports.config = {
     // and 30 processes will get spawned. The property handles how many capabilities
     // from the same test should run tests.
     //
-    maxInstances: 1,
+    maxInstances: 3,
     //
     // If you have trouble getting all important capabilities together, check out the
     // Sauce Labs platform configurator - a great tool to configure your capabilities:
@@ -122,12 +120,29 @@ exports.config = {
         // maxInstances can get overwritten per capability. So if you have an in-house Selenium
         // grid with only 5 firefox instances available you can make sure that not more than
         // 5 instances get started at a time.
-        maxInstances: 1,
+        maxInstances: 3,
         browserName: process.env.BROWSER_NAME || 'chrome',
-        browserName: 'chrome',
-        'goog:chromeOptions': {
-            args: ['headless', 'disable-gpu'],
-        },
+        //browserName: 'chrome',
+        "goog:loggingPrefs": {
+            'driver': 'INFO',
+            'browser': 'DEBUG',
+            'performance': 'INFO'
+          },
+          /*
+          acceptInsecureCerts: true,
+          'moz:firefoxOptions': {
+              args: ['start-maximized'],
+          },**/
+
+          'goog:chromeOptions': {
+              args: ['headless','disable-gpu'],
+          },
+          /*
+              browserName: 'MicrosoftEdge',
+              'ms:edgeOptions': {
+                  args: ['start-maximized'],
+              },
+            **/
         // If outputDir is provided WebdriverIO can capture driver session logs
         // it is possible to configure which logTypes to include/exclude.
         // excludeDriverLogs: ['*'], // pass '*' to exclude all driver session logs

@@ -36,9 +36,9 @@ const setupParallelExecution = () => {
 };
 
 const digyRunnerConfig = {
-	projectName: "phoenix",
+	projectName: "demo",
 	suiteName: "Regression",
-	teamName: "FT",
+	teamName: "Digy4",
 	appVersion: "2.0",
 	environment: "test",
 	moduleName: "FF",
