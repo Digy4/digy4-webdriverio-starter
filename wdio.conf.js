@@ -36,6 +36,9 @@ const setupParallelExecution = () => {
 };
 
 const digyRunnerConfig = {
+	lob: "digydashboard",
+	application: "checkout",
+	release: "release",
 	projectName: "demo",
 	suiteName: "Regression",
 	teamName: "Digy4",
@@ -49,7 +52,7 @@ const digyRunnerConfig = {
 	protocol: 'https',
 	strictSSL: false,
 	port: 443,
-    resultsSummaryUrl: 'https://2tvjoz1e36.execute-api.us-west-2.amazonaws.com/digy4-prod/v3/resultsSummary',
+        resultsSummaryUrl: 'https://2tvjoz1e36.execute-api.us-west-2.amazonaws.com/digy4-prod/v3/resultsSummary',
 	logsUploadBaseUrl: 'https://2tvjoz1e36.execute-api.us-west-2.amazonaws.com/digy4-prod/getPresignedUrl',
 	projectPlanUrl: 'https://87z71f2mxj.execute-api.us-west-2.amazonaws.com/prod/users/project-plan-details',
 	clientId: '',
