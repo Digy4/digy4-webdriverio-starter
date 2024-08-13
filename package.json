@@ -26,7 +26,7 @@
   "license": "proprietary",
   "dependencies": {
     "@aws-sdk/client-s3": "^3.186.0",
-    "@digy4/digyrunner-wdio": "^0.0.20",
+    "@digy4/digyrunner-wdio": "^0.0.23",
     "@wdio/shared-store-service": "^8.24.6",
     "cucumber-html-reporter": "^5.5.0",
     "file-system-cache": "^2.4.4",
@@ -37,7 +37,7 @@
     "uuid": "^9.0.0",
     "wdio-cucumber-parallel-execution": "^3.6.15",
     "wdio-video-reporter": "^4.0.5",
-    "webdriverio": "^7.20.7",
+    "webdriverio": "8.40.2",
     "yargs": "^17.5.1"
   },
   "devDependencies": {
