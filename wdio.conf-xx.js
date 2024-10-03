@@ -70,7 +70,9 @@ exports.config = {
     hostname: "prod-browsercloud-in.pcloudy.com",
     port: 443,
     services: [
-		[new DigyRunnerService(digyRunnerConfig)]
+		[DigyRunnerService, {
+            digyRunnerConfig: digyRunnerConfig,
+        }]
         //['local']
     ],
     //
