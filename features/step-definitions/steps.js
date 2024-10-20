@@ -1,5 +1,25 @@
 const { Given, When, Then } = require('@wdio/cucumber-framework');
 
+Given(/^I am on the (login|signup) tab$/, async (tab) => {
+    //TODO
+});
+
+When(/^I enter valid (login|signup) credentials$/, async (formType) => {
+    if (formType === 'login') {
+    //TODO
+    } else if (formType === 'signup') {
+    //TODO
+    }
+});
+
+Then(/^I should see a (Success|Signed Up) alert$/, async (alertType) => {
+    //TODO
+});
+
+Then('the alert should be closed when I click on OK', async () => {
+    //TODO
+});
+
 Given(/^I am on the (\w+) page$/, async (page) => {
     await browser.url(`https://the-internet.herokuapp.com/${page}`);
     await browser.pause(3000);

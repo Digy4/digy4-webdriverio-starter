@@ -11,12 +11,13 @@ const wdioParallel = require('wdio-cucumber-parallel-execution');
 const reporter = require('cucumber-html-reporter');
 const fs = require("fs");
 const currentTime = new Date().toJSON().replace(/:/g, "-");
+const { join } = require('node:path');
 
 const sourceSpecDirectory = `./features`;
 const tmpSpecDirectory = `./features-tmp`;
 const parallelExecutionReportDirectory = `.`;
 
-let featureFilePath = `${sourceSpecDirectory}/**/*.feature`;
+let featureFilePath = `${sourceSpecDirectory}/**/expedia.feature`;
 
 const PARALLEL_EXECUTION = false;
 //const PARALLEL_EXECUTION = false;
@@ -36,27 +37,28 @@ const setupParallelExecution = () => {
 };
 
 const digyRunnerConfig = {
-	lob: "digydashboard",
-	application: "checkout",
-	release: "release",
-	projectName: "demo",
-	suiteName: "Regression",
-	teamName: "Digy4",
-	appVersion: "2.0",
-	environment: "test",
-	moduleName: "SomeModuleName",
-	tester: "Joe Bloggs",
-	ba: "Joe Bloggs",
-	developer: "Joe Bloggs",
-	region: "us-east-2",
-	protocol: 'https',
-	strictSSL: false,
-	port: 443,
-        resultsSummaryUrl: 'https://2tvjoz1e36.execute-api.us-west-2.amazonaws.com/digy4-prod/v3/resultsSummary',
-	logsUploadBaseUrl: 'https://2tvjoz1e36.execute-api.us-west-2.amazonaws.com/digy4-prod/getPresignedUrl',
-	projectPlanUrl: 'https://87z71f2mxj.execute-api.us-west-2.amazonaws.com/prod/users/project-plan-details',
-	clientId: '',
-	clientSecret: '',
+    lob: "digydashboard",
+    application: "checkout",
+    release: "release",
+    projectName: "WdioMocha",
+    suiteName: "Regression",
+    teamName: "Digy4",
+    appVersion: "2.0",
+    environment: "test",
+    moduleName: "SomeModuleName",
+    tester: "Joe Bloggs",
+    ba: "Joe Bloggs",
+    developer: "Joe Bloggs",
+    region: "us-east-2",
+    protocol: 'https',
+    strictSSL: false,
+    port: 443,
+    resultsSummaryUrl: 'https://3qsmhuqr59.execute-api.us-east-1.amazonaws.com/digy4-test/v3/resultsSummary',
+    logsUploadBaseUrl: 'https://3qsmhuqr59.execute-api.us-east-1.amazonaws.com/digy4-test/getPresignedUrl',
+    projectPlanUrl: 'https://z85m9oisq5.execute-api.us-east-1.amazonaws.com/test/users/project-plan-details',
+    clientId: "d9dcd234876b01884e4c955bff981122:4265abcd95c634944621bb3462a4aff6",
+    clientSecret: "3ae857e2028da33c1387d9a9b3864f92:b1debc12b3feca57275acc624fcda4ec",
+    testType: 'MOBILE_APP'
 };
 
 exports.config = {
@@ -64,10 +66,32 @@ exports.config = {
         [new DigyRunnerService(digyRunnerConfig)],
         //'edgedriver',
         //'geckodriver',
-        ['chromedriver', {
-            chromedriverCustomPath: "./chromedriver",
-        }]
+        [
+            'appium',
+            {
+                // This will use the globally installed version of Appium
+                // command: 'appium',
+                args: {
+                    // This is needed to tell Appium that we can execute local ADB commands
+                    // and to automatically download the latest version of ChromeDriver
+                    relaxedSecurity: true,
+                    // Write the Appium logs to a file in the root of the directory
+                    log: './logs/appium.log',
+                },
+            },
+        ],
     ],
+    /*before: async ()=> {
+        console.log('inside appium before in wdio conf...');
+        // Only update the setting for Android, this is needed to reduce the timeout for the UiSelector locator strategy,
+        // which is also used in certain tests, so it will not wait for 10 seconds if it can't find an element
+        if (driver.isAndroid){
+            await driver.updateSettings({
+                // This reduces the timeout for the UiUiSelector from 10 seconds to 3 seconds
+                waitForSelectorTimeout: 3 * 1000
+            });
+        }
+    },*/
     //
     // ====================
     // Runner Configuration
@@ -90,7 +114,8 @@ exports.config = {
     // will be called from there.
     //
     specs: [
-        `${featureFilePath}`,
+        //`${featureFilePath}`,
+        '/Users/skhan/DEV/digy4/digy4-webdriverio-starter/features/login.feature',
     ],
     // Patterns to exclude.
     exclude: [
@@ -118,41 +143,57 @@ exports.config = {
     // Sauce Labs platform configurator - a great tool to configure your capabilities:
     // https://saucelabs.com/platform/platform-configurator
     //
-    capabilities: [{
-
-        // maxInstances can get overwritten per capability. So if you have an in-house Selenium
-        // grid with only 5 firefox instances available you can make sure that not more than
-        // 5 instances get started at a time.
-        maxInstances: 3,
-        browserName: process.env.BROWSER_NAME || 'chrome',
-        //browserName: 'chrome',
-        "goog:loggingPrefs": {
-            'driver': 'INFO',
-            'browser': 'DEBUG',
-            'performance': 'INFO'
-          },
-          /*
-          acceptInsecureCerts: true,
-          'moz:firefoxOptions': {
-              args: ['-headless'],
-          },**/
-
-          'goog:chromeOptions': {
-              args: ['headless','disable-gpu'],
-          },
-          /*
-              browserName: 'MicrosoftEdge',
-              'ms:edgeOptions': {
-                  args: ['start-maximized'],
+    capabilities: [
+        /*{
+            // maxInstances can get overwritten per capability. So if you have an in-house Selenium
+            // grid with only 5 firefox instances available you can make sure that not more than
+            // 5 instances get started at a time.
+            maxInstances: 3,
+            browserName: process.env.BROWSER_NAME || 'chrome',
+            //browserName: 'chrome',
+            "goog:loggingPrefs": {
+                'driver': 'INFO',
+                'browser': 'DEBUG',
+                'performance': 'INFO'
               },
-            **/
-        // If outputDir is provided WebdriverIO can capture driver session logs
-        // it is possible to configure which logTypes to include/exclude.
-        // excludeDriverLogs: ['*'], // pass '*' to exclude all driver session logs
-        // excludeDriverLogs: ['bugreport', 'server'],
-        //outputDir: `./${process.pid}`,
-        excludeDriverLogs: ['bugreport', 'javascript'],
-    }],
+
+              'goog:chromeOptions': {
+                  args: ['headless','disable-gpu'],
+              },
+            // If outputDir is provided WebdriverIO can capture driver session logs
+            // it is possible to configure which logTypes to include/exclude.
+            // excludeDriverLogs: ['*'], // pass '*' to exclude all driver session logs
+            // excludeDriverLogs: ['bugreport', 'server'],
+            //outputDir: `./${process.pid}`,
+            excludeDriverLogs: ['bugreport', 'javascript'],
+        },*/
+        {
+            // The defaults you need to have in your config
+            platformName: "Android",
+            "wdio:maxInstances": 1,
+            // For W3C the appium capabilities need to have an extension prefix
+            // This is `appium:` for all Appium Capabilities which can be found here
+
+            //
+            // NOTE: Change this name according to the Emulator you have created on your local machine
+            "appium:deviceName": "nightwatch-android-11",
+            //
+            // NOTE: Change this version according to the Emulator you have created on your local machine
+            "appium:platformVersion": "11.0",
+            "appium:orientation": "PORTRAIT",
+            "appium:automationName": "UiAutomator2",
+            // The path to the app
+            "appium:app": join(
+                process.cwd(),
+                "apps",
+                //
+                // NOTE: Change this name according to the app version you downloaded
+                "android.wdio.native.app.v1.0.8.apk"
+            ),
+            "appium:appWaitActivity": "com.wdiodemoapp.MainActivity",
+            "appium:newCommandTimeout": 240,
+        }
+    ],
     //
     // ===================
     // Test Configurations
